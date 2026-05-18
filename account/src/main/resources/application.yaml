@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: account
+  mongodb:
+    uri: mongodb://kimheng:kimheng0308@localhost:27017/account_db?authSource=admin
