@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class AccountDTO {
-	private Long acccountNumber;
+	private Long accountNumber;
 	private String accountType;
 	private String branchAddress;
 	private String createDate;

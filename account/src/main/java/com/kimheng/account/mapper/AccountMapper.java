@@ -13,7 +13,7 @@ import com.kimheng.account.entity.Customer;
 public class AccountMapper {
 	public Account toAccount(AccountDTO dto) {
 		Account ac = new Account();
-		ac.setAccountNumber(dto.getAcccountNumber());
+		ac.setAccountNumber(dto.getAccountNumber());
 		ac.setAccountType(dto.getAccountType());
 		ac.setBranchAddress(dto.getBranchAddress());
 		ac.setCreateDate(LocalDate.parse(dto.getCreateDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy")));
@@ -24,7 +24,7 @@ public class AccountMapper {
 	}
 	public AccountDTO toDto(Account account) {
 		AccountDTO dto = new AccountDTO();
-		dto.setAcccountNumber(account.getAccountNumber());
+		dto.setAccountNumber(account.getAccountNumber());
 		dto.setAccountType(account.getAccountType());
 		dto.setBranchAddress(account.getBranchAddress());
 		dto.setCreateDate(account.getCreateDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
