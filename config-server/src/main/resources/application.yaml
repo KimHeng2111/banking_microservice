@@ -1,13 +1,16 @@
+server:
+  port: 8888
+
 spring:
   application:
-    name: config-server
-  profiles:
-    active: native
+    name: bank-config-server
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/config #Use With resoure path location
-		  # file:///<path location
-server:
-  port: 8888
+        git:
+          uri: https://github.com/KimHeng2111/bank-config-server
+          clone-on-start: true
+          default-label: main
+
+encrypt:
+  key: "lengkimheng2111LovePheary"

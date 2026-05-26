@@ -1,5 +1,7 @@
 spring:
   application:
     name: account
-  mongodb:
-    uri: mongodb://kimheng:kimheng0308@localhost:27017/account_db?authSource=admin
+  profiles:
+    active: prod
+  config:
+    import: optional:configserver:http://localhost:8888
