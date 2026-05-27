@@ -1,0 +1,91 @@
+services:
+  config-server:
+    build:
+      context: ./../../config-server
+      dockerfile: Dockerfile
+    image: lengkimheng/config-server:1.0
+    mem_limit: 700m
+    ports:
+      - "8888:8888"
+    networks:
+      - bank-network
+  postgres:
+    build:
+      context: ./../../database/postgrest
+      dockerfile: Dockerfile
+    image: lengkimheng/postgres-db:1.0
+    mem_limit: 700m
+    ports:
+      - "5432:5432"
+    networks:
+      - bank-network
+    environment:
+      POSTGRES_USER: loan_admin
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: loan_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  mongodb:
+    build:
+      context: ./../../database/mongodb
+      dockerfile: Dockerfile
+    image: lengkimheng/account-db:1.0
+    mem_limit: 700m
+    ports:
+      - "27018:27017"
+    networks:
+      - bank-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: kimheng
+      MONGO_INITDB_ROOT_PASSWORD: kimheng0308
+    volumes:
+      - mongo-data:/data/db
+  loan:
+    # image: lengkimheng/loan-service:1.0
+    build:
+      context: ./../../loan
+      dockerfile: Dockerfile
+    image: lengkimheng/loan-service:latest
+    mem_limit: 700m
+    ports:
+      - "8081:8081"
+    networks:
+      - bank-network
+    depends_on:
+      - config-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
+    environment:
+      ACTIVE: prod
+      CONFIG_SERVER_URL: configserver:http://config-server:8888
+  account:
+    build:
+      context: ./../../account
+      dockerfile: Dockerfile
+    image: lengkimheng/account-service:latest
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - bank-network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
+    depends_on:
+      - config-server
+    environment:
+      ACTIVE: prod
+      CONFIG_SERVER_URL: configserver:http://config-server:8888
+networks:
+  bank-network:
+    driver: bridge
+volumes:
+  postgres-data:
+  mongo-data:
