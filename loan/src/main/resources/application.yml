@@ -9,3 +9,8 @@ spring:
 #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 server:
   port: 8081
+namagement:
+  endpoint:
+    web:
+      exposure:
+        include: refresh

@@ -53,6 +53,7 @@ services:
       - bank-network
     depends_on:
       - config-server
+      - postgres
     deploy:
       restart_policy:
         condition: on-failure

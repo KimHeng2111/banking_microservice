@@ -7,3 +7,8 @@ spring:
     import: "${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888}"
 server:
   port : 8080
+namagement:
+  endpoint:
+    web:
+      exposure:
+        include: refresh

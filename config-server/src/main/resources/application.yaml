@@ -10,6 +10,5 @@ spring:
           uri: https://github.com/KimHeng2111/bank-config-server
           clone-on-start: true
           default-label: main
-
 encrypt:
   key: "lengkimheng2111LovePheary"
