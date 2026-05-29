@@ -6,9 +6,25 @@ spring:
   config:
     import: "${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888}"
 server:
-  port : 8080
-namagement:
-  endpoint:
+  port : 8081
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
     web:
       exposure:
-        include: refresh
+        include: health,info,metrics,refresh
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_SERVER:localhost}:9000/eureka/
+info:
+  app:
+    name: Account Microservice
+    description: KimHengMicroServiceBank
+    version: 1.0.1

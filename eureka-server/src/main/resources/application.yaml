@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: eureka-server
+  eureka:
+    client:
+      register-witheureka: false
+      fetch-registry: false
+  config:
+    import: optional:configserver:http://${CONFIG_SERVER:localhost}:8888
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+server:
+  port: 9000
