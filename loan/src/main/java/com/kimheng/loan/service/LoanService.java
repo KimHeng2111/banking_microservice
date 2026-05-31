@@ -9,4 +9,5 @@ public interface LoanService  {
 	Loan createLoan(LoanDTO dto);
 	LoanDTO getLoanById(String id);
 	List<LoanDTO> getAllLoan();
+	List<LoanDTO> getLoanByCustomerId(String customerId);
 }

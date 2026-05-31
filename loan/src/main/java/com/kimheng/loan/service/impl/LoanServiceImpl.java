@@ -39,4 +39,10 @@ public class LoanServiceImpl implements LoanService {
 		return collect;
 	}
 
+	@Override
+	public List<LoanDTO> getLoanByCustomerId(String customerId) {
+		List<Loan> loans = repository.findByCustomerId(customerId);
+		return loans.stream().map(laon -> mapper.toDto(laon)).toList();
+	}
+
 }

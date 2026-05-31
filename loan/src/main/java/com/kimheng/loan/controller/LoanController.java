@@ -41,4 +41,9 @@ public class LoanController {
 		List<LoanDTO> allLoan = service.getAllLoan();
 		return ResponseEntity.ok(allLoan);
 	}
+	@GetMapping("customer/{id}")
+	public ResponseEntity<List<LoanDTO>> getLoanByCustomerId(@PathVariable("id") String customerId){
+		List<LoanDTO> loands = service.getLoanByCustomerId(customerId);
+		return ResponseEntity.ok(loands);
+	}
 }

@@ -54,6 +54,7 @@ services:
     depends_on:
       - config-server
       - postgres
+      - eureka-server
     deploy:
       restart_policy:
         condition: on-failure
@@ -63,6 +64,8 @@ services:
     environment:
       ACTIVE: prod
       CONFIG_SERVER_URL: configserver:http://config-server:8888
+      EUREKA_SERVER: eureka-server
+      EUREKA_PORT: 9000
   account:
     build:
       context: ./../../account
@@ -81,9 +84,30 @@ services:
         window: 120s
     depends_on:
       - config-server
+      - eureka-server
+      - mongodb
     environment:
       ACTIVE: prod
       CONFIG_SERVER_URL: configserver:http://config-server:8888
+      EUREKA_SERVER: eureka-server
+      EUREKA_PORT: 9000
+  eureka-server:
+    build:
+      context: ./../../eureka-server
+      dockerfile: Dockerfile
+    image: lengkimheng/eureka-server:1.0
+    mem_limit: 700m
+    ports:
+      - "9000:9000"
+    networks:
+      - bank-network
+    depends_on:
+      - config-server
+    environment:
+      ACTIVE: prod
+      CONFIG_SERVER_URL: configserver:http://config-server:8888
+      EUREKA_SERVER: eureka-server
+      EUREKA_PORT: 9000
 networks:
   bank-network:
     driver: bridge

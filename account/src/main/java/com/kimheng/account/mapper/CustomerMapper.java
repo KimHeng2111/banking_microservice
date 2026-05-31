@@ -17,4 +17,12 @@ public class CustomerMapper {
 		cus.setCreateDate(LocalDate.parse(dto.getCreateDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 		return cus;
 	}
+	public CustomerDTO toDto(Customer cus) {
+		CustomerDTO dto = new CustomerDTO();
+		dto.setName(cus.getName());
+		dto.setEmail(cus.getEmail());
+		dto.setMobileNumber(cus.getMobileNumber());
+		dto.setCreateDate(cus.getCreateDate().toString());
+		return dto;
+	}
 }

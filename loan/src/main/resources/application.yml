@@ -9,8 +9,24 @@ spring:
 #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 server:
   port: 8081
-namagement:
-  endpoint:
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
     web:
       exposure:
-        include: refresh
+        include: health,info,metrics,refresh
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_SERVER:localhost}:${EUREKA_PORT:9000}/eureka/
+info:
+  app:
+    name: LoaN Microservice
+    description: KimHengMicroServiceBank
+    version: 1.0.1
