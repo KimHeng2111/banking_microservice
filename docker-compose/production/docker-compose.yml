@@ -3,7 +3,7 @@ services:
     build:
       context: ./../../config-server
       dockerfile: Dockerfile
-    image: lengkimheng/config-server:1.0
+    image: lengkimheng/config-server:latest
     mem_limit: 700m
     ports:
       - "8888:8888"
@@ -13,7 +13,7 @@ services:
     build:
       context: ./../../database/postgrest
       dockerfile: Dockerfile
-    image: lengkimheng/postgres-db:1.0
+    image: lengkimheng/postgres-db:latest
     mem_limit: 700m
     ports:
       - "5432:5432"
@@ -29,7 +29,7 @@ services:
     build:
       context: ./../../database/mongodb
       dockerfile: Dockerfile
-    image: lengkimheng/account-db:1.0
+    image: lengkimheng/account-db:latest
     mem_limit: 700m
     ports:
       - "27018:27017"
@@ -63,7 +63,8 @@ services:
         window: 120s
     environment:
       ACTIVE: prod
-      CONFIG_SERVER_URL: configserver:http://config-server:8888
+      CONFIGSERVER_HOST: config-server
+      CONFIGSERVER_PORT: 8888
       EUREKA_SERVER: eureka-server
       EUREKA_PORT: 9000
   account:
@@ -88,7 +89,8 @@ services:
       - mongodb
     environment:
       ACTIVE: prod
-      CONFIG_SERVER_URL: configserver:http://config-server:8888
+      CONFIGSERVER_HOST: config-server
+      CONFIGSERVER_PORT: 8888
       EUREKA_SERVER: eureka-server
       EUREKA_PORT: 9000
   eureka-server:
@@ -103,9 +105,16 @@ services:
       - bank-network
     depends_on:
       - config-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
     environment:
       ACTIVE: prod
-      CONFIG_SERVER_URL: configserver:http://config-server:8888
+      CONFIGSERVER_HOST: config-server
+      CONFIGSERVER_PORT: 8888
       EUREKA_SERVER: eureka-server
       EUREKA_PORT: 9000
 networks:
