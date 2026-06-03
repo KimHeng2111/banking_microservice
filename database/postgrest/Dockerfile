@@ -1,5 +1,5 @@
 # Use official PostgreSQL base image
-FROM postgres:16
+FROM postgres:16-alpine
 
 # Set environment variables for default user and database
 ENV POSTGRES_USER=loan_admin

@@ -6,7 +6,7 @@ ENV MONGO_INITDB_ROOT_USERNAME=kimheng \
     MONGO_INITDB_ROOT_PASSWORD=kimheng0308
 
 # Create a directory for MongoDB data
-VOLUME /data/db
+# VOLUME /data/db
 
 # Copy initialization scripts (optional)
 # Any .js or .sh files placed here will run at startup
