@@ -5,6 +5,12 @@ spring:
     active: ${ACTIVE:default}
   config:
     import: configserver:http://${configserver.host:localhost}:${configserver.port:8888}
+  banner:
+    location: classpath:banner.txt
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 server:
   port : 8080
 #management:
@@ -23,6 +29,20 @@ server:
 #    fetchRegistry: true
 #    serviceUrl:
 #      defaultZone: http://${EUREKA_SERVER:localhost}:${EUREKA_PORT:9000}/eureka/
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      LoanFeigngetLoanByIdString:
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        slowCallRateThreshold: 75
+        slowCallDurationThreshold: 2s
+        waitDurationInOpenState: 15s
+        permittedNumberOfCallsInHalfOpenState: 3
 info:
   app:
     name: Account Microservice
