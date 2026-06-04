@@ -6,36 +6,35 @@
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.5.0:clean (default-clean) @ account ---
-[INFO] Deleting C:\Users\lengk\OneDrive\Desktop\Practice\banking_microservice\account\target
+[INFO] Deleting C:\Users\lengk\OneDrive\Desktop\pratice\BankingMicroservice\account\target
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ account ---
 [INFO] Copying 1 resource from src\main\resources to target\classes
-[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
 [INFO] 
 [INFO] --- compiler:3.14.1:compile (default-compile) @ account ---
 [INFO] Recompiling the module because of changed source code.
 [INFO] Compiling 18 source files with javac [debug parameters release 25] to target\classes
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ account ---
-[INFO] skip non existing resourceDirectory C:\Users\lengk\OneDrive\Desktop\Practice\banking_microservice\account\src\test\resources
+[INFO] Copying 0 resource from src\test\resources to target\test-classes
 [INFO] 
 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ account ---
-[INFO] No sources to compile
+[INFO] Recompiling the module because of changed dependency.
 [INFO] 
 [INFO] --- surefire:3.5.5:test (default-test) @ account ---
-[INFO] No tests to run.
 [INFO] 
 [INFO] --- jar:3.4.2:jar (default-jar) @ account ---
-[INFO] Building jar: C:\Users\lengk\OneDrive\Desktop\Practice\banking_microservice\account\target\account-0.0.1-SNAPSHOT.jar
+[INFO] Building jar: C:\Users\lengk\OneDrive\Desktop\pratice\BankingMicroservice\account\target\account-0.0.1-SNAPSHOT.jar
 [INFO] 
 [INFO] --- spring-boot:4.0.6:repackage (repackage) @ account ---
-[INFO] Replacing main artifact C:\Users\lengk\OneDrive\Desktop\Practice\banking_microservice\account\target\account-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
-[INFO] The original artifact has been renamed to C:\Users\lengk\OneDrive\Desktop\Practice\banking_microservice\account\target\account-0.0.1-SNAPSHOT.jar.original
+[INFO] Replacing main artifact C:\Users\lengk\OneDrive\Desktop\pratice\BankingMicroservice\account\target\account-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Users\lengk\OneDrive\Desktop\pratice\BankingMicroservice\account\target\account-0.0.1-SNAPSHOT.jar.original
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  17.384 s
-[INFO] Finished at: 2026-05-31T17:44:04+07:00
+[INFO] Total time:  4.534 s
+[INFO] Finished at: 2026-06-04T08:34:55+07:00
 [INFO] ------------------------------------------------------------------------
 
-C:\Users\lengk\OneDrive\Desktop\Practice\banking_microservice>
+C:\Users\lengk\OneDrive\Desktop\pratice\BankingMicroservice>

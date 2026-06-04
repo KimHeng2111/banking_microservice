@@ -36,11 +36,11 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = repository.findById(Id).orElseThrow(() -> new RuntimeException("CustomerID : %s is not fuound!!!!".formatted(Id)));
 		return mapper.toDto(customer);
 	}
-	@CircuitBreaker(name = "customerDetailBreaker", fallbackMethod = "loanError")
 	@Override
+	@CircuitBreaker(name = "LoanFeigngetLoanByIdString", fallbackMethod = "getLoanError")
 	public CustomerDetailResponeDTO customerDetailById(String customerId) {
 		List<LoanResponseDTO> loans = loanFeign.getLoanById(customerId);
-		AccountDTO account = accountService.findByCustomerId(customerId);
+		List<AccountDTO> account = accountService.findByCustomerId(customerId);
 		Customer customer = repository.findById(customerId).orElseThrow(() -> new RuntimeException("CustomerID : %s is not fuound!!!!".formatted(customerId)));
 		CustomerDetailResponeDTO customerDetail = new CustomerDetailResponeDTO();
 		customerDetail.setCustomer(mapper.toDto(customer));
@@ -48,8 +48,8 @@ public class CustomerServiceImpl implements CustomerService {
 		customerDetail.setLoans(loans);
 		return customerDetail;
 	}
-	public CustomerDetailResponeDTO loanError(String customerId,Throwable throwable) {
-		AccountDTO account = accountService.findByCustomerId(customerId);
+	public CustomerDetailResponeDTO getLoanError(String customerId,Throwable throwable) {
+		List<AccountDTO> account = accountService.findByCustomerId(customerId);
 		Customer customer = repository.findById(customerId).orElseThrow(() -> new RuntimeException("CustomerID : %s is not fuound!!!!".formatted(customerId)));
 		CustomerDetailResponeDTO customerDetail = new CustomerDetailResponeDTO();
 		List<LoanResponseDTO> loans = new ArrayList<LoanResponseDTO>();

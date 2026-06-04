@@ -10,7 +10,7 @@ spring:
   cloud:
     openfeign:
       circuitbreaker:
-        enabled: true
+        enabled: false
 server:
   port : 8080
 #management:
@@ -36,13 +36,29 @@ resilience4j:
         registerHealthIndicator: true
     instances:
       LoanFeigngetLoanByIdString:
-        slidingWindowSize: 5
-        minimumNumberOfCalls: 5
+#        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
         failureRateThreshold: 50
         slowCallRateThreshold: 75
         slowCallDurationThreshold: 2s
         waitDurationInOpenState: 15s
         permittedNumberOfCallsInHalfOpenState: 3
+#      CustomerDetailBreaker:
+#        minimumNumberOfCalls: 3
+#        failureRateThreshold: 50
+#        slowCallRateThreshold: 75
+#        slowCallDurationThreshold: 2s
+#        waitDurationInOpenState: 15s
+#        permittedNumberOfCallsInHalfOpenState: 3
+  ratelimiter:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      testRateLimiter:
+        limitForPeriod: 5
+        limitRefreshPeriod: 10s
+        timeoutDuration: 2s
 info:
   app:
     name: Account Microservice

@@ -36,6 +36,7 @@ public class CustomerController {
 		return ResponseEntity.ok(dto);
 	}
 	@GetMapping("detail/{customerId}")
+	
 	public ResponseEntity<CustomerDetailResponeDTO> getCustoemrDetail(@PathVariable String customerId){
 		CustomerDetailResponeDTO customerDetail = service.customerDetailById(customerId);
 		return ResponseEntity.ok(customerDetail);
@@ -44,4 +45,8 @@ public class CustomerController {
 	public ResponseEntity<List<Customer>> getCustoemrs(){
 		return ResponseEntity.ok(service.getAllCustomer());
 	}
+//	public ResponseEntity<CustomerDetailResponeDTO> getError(String customerId, Throwable throwable){
+//		CustomerDetailResponeDTO customerDetail = service.loanError(customerId, throwable);
+//		return ResponseEntity.ok(customerDetail);
+//	}
 }

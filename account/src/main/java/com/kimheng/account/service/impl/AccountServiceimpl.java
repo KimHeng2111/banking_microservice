@@ -1,5 +1,7 @@
 package com.kimheng.account.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.kimheng.account.dto.AccountDTO;
@@ -24,10 +26,15 @@ public class AccountServiceimpl implements AccountService{
 	}
 
 	@Override
-	public AccountDTO findByCustomerId(String customerId) {
-		Account account = repository.findByCustomerId(customerId)
-	            .orElseThrow(() -> new RuntimeException("Customer ID: %s does not have any account".formatted(customerId)));
-	    return mapper.toDto(account);
+	public List<AccountDTO> findByCustomerId(String customerId) {
+		List<AccountDTO> accounts = repository.findByCustomerId(customerId).stream().map(account -> mapper.toDto(account)).toList();
+	    return accounts;
 	}
 
+	@Override
+	public List<AccountDTO> findAllAccount() {
+		// TODO Auto-generated method stub
+		return repository.findAll().stream().map(account -> mapper.toDto(account)).toList();
+	}
+	
 }

@@ -14,7 +14,7 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 	Optional<Account> findByAccountNumber(Long accountNumber);
 
     // 2. Find all accounts belonging to a specific customer using the @DocumentReference link
-	Optional<Account> findByCustomerId(String customerId);
+	List<Account> findByCustomerId(String customerId);
     
     // 3. Find accounts by account type (e.g., "Savings")
     List<Account> findByAccountType(String accountType);

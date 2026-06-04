@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class CustomerDetailResponeDTO {
 	private CustomerDTO customer;
-	private AccountDTO accounts;
+	private List<AccountDTO> accounts;
 	private List<LoanResponseDTO> loans;
 }
