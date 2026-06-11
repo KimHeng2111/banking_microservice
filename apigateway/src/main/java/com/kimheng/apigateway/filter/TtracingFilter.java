@@ -20,6 +20,7 @@ public class TtracingFilter {
 	@Bean
 	@Order(1)
 	public GlobalFilter preTracingFilter() {
+		log.debug("================Hello====================");
 		return (exchange , chain) -> {
 			HttpHeaders requestHeader = exchange.getRequest().getHeaders();
 			if(isCorrelationIdPresent(requestHeader)) {
@@ -34,6 +35,7 @@ public class TtracingFilter {
 	@Bean
 	@Order(2)
 	public GlobalFilter postTracingFilter() {
+		log.debug("================Hello====================");
 		return (exchange , chain) -> {
 //			HttpHeaders responseHeader = exchange.getResponse().getHeaders();
 //			if(isCorrelationIdPresent(responseHeader)) {

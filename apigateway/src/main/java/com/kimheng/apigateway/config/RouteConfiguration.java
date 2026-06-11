@@ -16,7 +16,12 @@ public class RouteConfiguration {
 						.path("/account/**")
 						.filters(f -> f.prefixPath("/api")
 						.addResponseHeader("X-RESPONSE-TIME", LocalDateTime.now().toString()))
-						.uri("lb://ACCOUNT")
-						).build();
+						.uri("lb://ACCOUNT"))
+				.route(t -> t.path("/loan/**")
+						.filters(f -> f.prefixPath("/api")
+								.addRequestHeader("X-RESPONSE-TIMe", LocalDateTime.now().toString()))
+						.uri("lb://LOAN")
+						)
+				.build();
 	}
 }
