@@ -117,9 +117,23 @@ services:
       CONFIGSERVER_PORT: 8888
       EUREKA_SERVER: eureka-server
       EUREKA_PORT: 9000
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=KimHengBanking
+      - RABBITMQ_DEFAULT_PASS=KimHengBanking
+    networks:
+      - bank-network
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
 networks:
   bank-network:
     driver: bridge
 volumes:
   postgres-data:
   mongo-data:
+  rabbitmq-data:
