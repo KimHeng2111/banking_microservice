@@ -1,5 +1,8 @@
 services:
   config-server:
+    build:
+      context: ./../../config-server
+      dockerfile: Dockerfile
     image: lengkimheng/configserver:latest
     mem_limit: 700m
     networks:
@@ -37,6 +40,9 @@ services:
     volumes:
       - mongo-data:/data/db
   loan:
+    build:
+      context: ./../../loan
+      dockerfile: Dockerfile
     image: lengkimheng/loan:latest
     mem_limit: 700m
     networks:
@@ -62,6 +68,9 @@ services:
       RABBITMQ_USERNAME: KimHengBanking
       RABBITMQ_PASSWORD: KimHengBanking
   account:
+    build:
+      context: ./../../account
+      dockerfile: Dockerfile
     image: lengkimheng/account:latest
     mem_limit: 700m
     networks:
@@ -87,6 +96,9 @@ services:
       RABBITMQ_USERNAME: KimHengBanking
       RABBITMQ_PASSWORD: KimHengBanking
   eureka-server:
+    build:
+      context: ./../../eureka-server
+      dockerfile: Dockerfile
     image: lengkimheng/eurekaserver:latest
     mem_limit: 700m
     ports:
@@ -112,6 +124,9 @@ services:
       RABBITMQ_USERNAME: KimHengBanking
       RABBITMQ_PASSWORD: KimHengBanking
   api-gateway:
+    build:
+      context: ./../../apigateway
+      dockerfile: Dockerfile
     image: lengkimheng/apigateway:latest
     mem_limit: 700m
     networks:
