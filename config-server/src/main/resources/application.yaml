@@ -12,5 +12,18 @@ spring:
           default-label: main
   banner:
     location: classpath:banner.txt
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 encrypt:
   key: "lengkimheng2111LovePheary"
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"

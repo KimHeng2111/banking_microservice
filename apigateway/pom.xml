@@ -30,11 +30,16 @@
 	<properties>
 		<java.version>25</java.version>
 		<spring-cloud.version>2025.1.1</spring-cloud.version>
+		<start-class>${project.groupId}.${project.artifactId}.ApigatewayApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -119,6 +124,29 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.2</version> <!-- Use the latest available version -->
+				<configuration>
+					<from>
+						<!-- Define your base image (defaults to distroless Java
+						if omitted) -->
+						<image>eclipse-temurin:25-jre-alpine</image>
+					</from>
+					<to>
+						<!-- Define target repository and tag -->
+						<image>lengkimheng/${project.artifactId}:latest</image>
+					</to>
+<!--					<container>
+						 Runtime environment configurations 
+												<ports>
+							<port>8080</port>
+						</ports>
+						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+					</container>-->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

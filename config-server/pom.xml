@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kimheng</groupId>
-	<artifactId>config-server</artifactId>
+	<artifactId>configserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name />
 	<description />
@@ -30,6 +30,7 @@
 	<properties>
 		<java.version>25</java.version>
 		<spring-cloud.version>2025.1.1</spring-cloud.version>
+		<start-class>${project.groupId}.${project.artifactId}.ConfigServerApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -39,6 +40,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<!-- Spring Cloud Config Monitor -->
 		<dependency>
@@ -76,7 +81,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
@@ -89,15 +93,15 @@
 					</from>
 					<to>
 						<!-- Define target repository and tag -->
-						<image>${project.artifactId}:${project.version}</image>
+						<image>lengkimheng/${project.artifactId}:latest</image>
 					</to>
-					<container>
-						<!-- Runtime environment configurations -->
-						<!--						<ports>
+<!--					<container>
+						 Runtime environment configurations 
+												<ports>
 							<port>8080</port>
-						</ports>-->
+						</ports>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-					</container>
+					</container>-->
 				</configuration>
 			</plugin>
 

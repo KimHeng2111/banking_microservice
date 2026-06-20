@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.0.6</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>eureka-server</artifactId>
+	<artifactId>eurekaserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
+	<name />
+	<description />
+	<url />
 	<licenses>
-		<license/>
+		<license />
 	</licenses>
 	<developers>
-		<developer/>
+		<developer />
 	</developers>
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection />
+		<developerConnection />
+		<tag />
+		<url />
 	</scm>
 	<properties>
 		<java.version>25</java.version>
 		<spring-cloud.version>2025.1.1</spring-cloud.version>
+		<start-class>${project.groupId}.${project.artifactId}.EurekaServerApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -38,6 +40,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -67,6 +73,29 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.2</version> <!-- Use the latest available version -->
+				<configuration>
+					<from>
+						<!-- Define your base image (defaults to distroless Java
+						if omitted) -->
+						<image>eclipse-temurin:25-jre-alpine</image>
+					</from>
+					<to>
+						<!-- Define target repository and tag -->
+						<image>lengkimheng/${project.artifactId}:latest</image>
+					</to>
+					<!--					<container>
+						 Runtime environment configurations 
+												<ports>
+							<port>8080</port>
+						</ports>
+						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+					</container>-->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

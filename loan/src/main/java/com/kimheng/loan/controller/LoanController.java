@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/loan")
+@RequestMapping("api/loan")
 public class LoanController {
 	private final LoanService service;
 	private LoanDTO loan;

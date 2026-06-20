@@ -5,12 +5,5 @@ spring:
     active: ${ACTIVE:default}
   config:
     import: configserver:http://${configserver.host:localhost}:${configserver.port:8888}
-#  cloud:
-#    gateway:
-#      server:
-#        webflux: 
-#          discovery:
-#            locator:
-#              enabled: true		  
 server:
-  port: 8080
+  port: 8000

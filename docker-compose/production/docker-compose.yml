@@ -1,22 +1,20 @@
 services:
   config-server:
-    build:
-      context: ./../../config-server
-      dockerfile: Dockerfile
-    image: lengkimheng/config-server:latest
+    image: lengkimheng/configserver:latest
     mem_limit: 700m
-    ports:
-      - "8888:8888"
     networks:
       - bank-network
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: KimHengBanking
+      RABBITMQ_PASSWORD: KimHengBanking
   postgres:
     build:
       context: ./../../database/postgrest
       dockerfile: Dockerfile
     image: lengkimheng/postgres-db:latest
     mem_limit: 700m
-    ports:
-      - "5432:5432"
     networks:
       - bank-network
     environment:
@@ -31,8 +29,6 @@ services:
       dockerfile: Dockerfile
     image: lengkimheng/account-db:latest
     mem_limit: 700m
-    ports:
-      - "27018:27017"
     networks:
       - bank-network
     environment:
@@ -41,14 +37,8 @@ services:
     volumes:
       - mongo-data:/data/db
   loan:
-    # image: lengkimheng/loan-service:1.0
-    build:
-      context: ./../../loan
-      dockerfile: Dockerfile
-    image: lengkimheng/loan-service:latest
+    image: lengkimheng/loan:latest
     mem_limit: 700m
-    ports:
-      - "8081:8081"
     networks:
       - bank-network
     depends_on:
@@ -67,14 +57,13 @@ services:
       CONFIGSERVER_PORT: 8888
       EUREKA_SERVER: eureka-server
       EUREKA_PORT: 9000
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: KimHengBanking
+      RABBITMQ_PASSWORD: KimHengBanking
   account:
-    build:
-      context: ./../../account
-      dockerfile: Dockerfile
-    image: lengkimheng/account-service:latest
+    image: lengkimheng/account:latest
     mem_limit: 700m
-    ports:
-      - "8080:8080"
     networks:
       - bank-network
     deploy:
@@ -93,11 +82,12 @@ services:
       CONFIGSERVER_PORT: 8888
       EUREKA_SERVER: eureka-server
       EUREKA_PORT: 9000
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: KimHengBanking
+      RABBITMQ_PASSWORD: KimHengBanking
   eureka-server:
-    build:
-      context: ./../../eureka-server
-      dockerfile: Dockerfile
-    image: lengkimheng/eureka-server:1.0
+    image: lengkimheng/eurekaserver:latest
     mem_limit: 700m
     ports:
       - "9000:9000"
@@ -117,6 +107,34 @@ services:
       CONFIGSERVER_PORT: 8888
       EUREKA_SERVER: eureka-server
       EUREKA_PORT: 9000
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: KimHengBanking
+      RABBITMQ_PASSWORD: KimHengBanking
+  api-gateway:
+    image: lengkimheng/apigateway:latest
+    mem_limit: 700m
+    networks:
+      - bank-network
+    depends_on:
+      - config-server
+      - eureka-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
+    environment:
+      ACTIVE: prod
+      CONFIGSERVER_HOST: config-server
+      CONFIGSERVER_PORT: 8888
+      EUREKA_SERVER: eureka-server
+      EUREKA_PORT: 9000
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: KimHengBanking
+      RABBITMQ_PASSWORD: KimHengBanking
   rabbitmq:
     image: rabbitmq:3.13-management-alpine
     restart: always
@@ -130,6 +148,14 @@ services:
       - bank-network
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=eyJhIjoiMzFiY2Y5MTY5OWNmMzI4Y2I5NzE4MWE4MTNlNjBlNzkiLCJ0IjoiZmRkOTNmMWMtYTllMy00MzhjLWFiNjEtNDJiZmFmYzU4MzBjIiwicyI6Ik5tSm1NelpsWldZdE1XRTFOUzAwT1dVeExUZzVOVGd0Tm1RelpqUTJOREUyTW1JeCJ9
+    networks:
+      - bank-network
 networks:
   bank-network:
     driver: bridge
